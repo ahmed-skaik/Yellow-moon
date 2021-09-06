@@ -7,7 +7,6 @@
   --padding-top: 100px;
   --padding-buttom: 150px;
 }
-
 /* end variables */
 
 /* start global rules */
@@ -27,6 +26,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  -moz-scroll-behavior: smooth;
+  -o-scroll-behavior: smooth;
+  -ms-scroll-behavior: smooth;
 }
 
 .container {
@@ -38,6 +41,10 @@ html {
 
 ul {
   list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 ::selection {
@@ -52,20 +59,19 @@ ul {
   }
 }
 
-/* small screen */
+/* medium screen */
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
 
-/* small screen */
+/* large screen */
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
   }
 }
-
 /* end global rules */
 
 /* start components */
@@ -85,7 +91,6 @@ ul {
   font-weight: 400;
   text-transform: uppercase;
 }
-
 /* end components */
 
 /* landing start */
@@ -94,7 +99,7 @@ ul {
   padding-bottom: calc(var(--padding-buttom) / 2);
   background-image: url(../Images/header_bg.jpg);
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -108,15 +113,25 @@ ul {
 }
 
 .landing .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  height: 100%;
+  width: 50%;
 }
 
-.landing .container img {
-  padding-bottom: 45px;
+@media (max-width: 767px) {
+  .landing .container {
+    width: auto;
+    height: auto;
+  }
+}
+
+.landing .container .logo {
+  padding: 20px;
+  margin-bottom: 40px;
 }
 
 .landing .container p {
@@ -124,8 +139,6 @@ ul {
   font-weight: 400;
   font-size: 15px;
   margin-bottom: 40px;
-  max-width: 100%;
-  text-align: center;
 }
 
 .landing .container h1 {
@@ -133,9 +146,13 @@ ul {
   font-size: 40px;
   font-weight: 300;
   letter-spacing: 2px;
-  margin-bottom: 110px;
-  width: 100%;
-  text-align: center;
+  margin-bottom: 115px;
+}
+
+@media (max-width: 767px) {
+  .landing .container h1 {
+    margin-bottom: 50px;
+  }
 }
 
 .landing .container a:first-of-type {
@@ -144,8 +161,11 @@ ul {
   border: 1px solid var(--id-color);
   padding: 20px 80px;
   text-transform: uppercase;
-  margin-bottom: 50px;
   transition: 0.4s;
+  display: block;
+  width: fit-content;
+  width: -moz-fit-content;
+  margin: 0 auto 35px;
 }
 
 .landing .container a:first-of-type:hover {
@@ -169,28 +189,12 @@ animation-delay: 1s;
     transform: translateY(10px);
   }
 }
-
-@media (max-width: 767px) {
-  .landing .container p {
-    margin-bottom: 10px;
-  }
-
-  .landing .container h1 {
-    margin-bottom: 25px;
-  }
-
-  .landing .container {
-    top: 50%;
-    transform: translatey(-50%);
-}
-  }
-
 /* landing end */
 
 /* header start  */
 .header {
   border-bottom: 1px solid var(--id-color);
-  min-height: 115px;
+  min-height: 81.4px;
   display: flex;
   align-items: center;
   background-color: rgb( 255 255 255 / 80%);
@@ -239,12 +243,11 @@ animation-delay: 1s;
 
 .header .container nav ul {
   display: flex;
-  padding: 25px;
+  padding: 15px;
 }
 
 .header .container nav ul li {
   padding: 15px 20px;
-  /* margin-right: -15px; */
 }
 
 @media (max-width: 767px) {
@@ -258,11 +261,19 @@ animation-delay: 1s;
     position: absolute;
     left: 0;
     width: 100%;
-    top: 40px;
+    top: 133%;
     background-color: rgb( 255 255 255);
     border-bottom: 1px solid var(--id-color);
     text-align: center;
   }
+  .header nav:hover ul::before {
+    content: "";
+    position: absolute;
+    border: 15px solid;
+    border-color: transparent transparent transparent transparent;
+    right: 20px;
+    top: -12%;
+}
 }
 
 .header .container nav ul li a {
@@ -290,7 +301,6 @@ animation-delay: 1s;
     padding: 12px;
   }
 }
-
 /* header end  */
 
 /* about start  */
@@ -302,8 +312,6 @@ animation-delay: 1s;
 .about .container {
   display: flex;
   justify-content: space-around;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
 }
 
 @media (max-width: 767px) {
@@ -321,7 +329,6 @@ animation-delay: 1s;
 }
 
 .about .container div {
-/* background-color: #eee; */
 counter-increment: count;
 flex: 1;
 }
@@ -376,7 +383,6 @@ flex: 1;
   font-weight: 300;
   max-width: 100%;
 }
-
 /* about end  */
 
 /* quote start  */
@@ -434,13 +440,12 @@ flex: 1;
   font-size: 15px;
   font-weight: 500;
 }
-
 /* quote end  */
 
 /* portfolio start  */
 .portfolio {
   padding-top: calc(var(--padding-top) + 50px);
-  padding-bottom: var(--padding-buttom);
+  /* padding-bottom: var(--padding-buttom); */
 }
 
 /* work as mobile first  */
@@ -510,6 +515,7 @@ flex: 1;
 
 .portfolio .end {
   text-align: center;
+  padding: 15px 0;
 }
 
 .portfolio .end p {
@@ -526,7 +532,6 @@ flex: 1;
   animation-iteration-count: infinite;
   animation-delay: 1s;
 }
-
 /* portfolio end  */
 
 /* clients start  */
@@ -537,13 +542,8 @@ flex: 1;
   background-size: cover;
   background-position: center;
   position: relative;
-  min-height: calc(100vh - 115px);
-
+  min-height: calc(100vh - 81.4px);
 }
-
-/* .clients .empty {
-
-} */
 
 .clients .special-heading {
   color: white;
@@ -551,11 +551,11 @@ flex: 1;
 
 .clients .over-lay {
   background-color: rgb(0 0 0 / 75%);
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
 }
 
 .clients .head {
@@ -593,7 +593,6 @@ flex: 1;
   padding-top: calc(var(--padding-top) + 50px);
   padding-bottom: var(--padding-buttom);
 }
-
 
 @media (min-width: 992px) {
   .contact .container {
@@ -666,7 +665,6 @@ grid-area: mail;
   color: var(--secondary-color);
   background-color: white;
 }
-
 /* contact end */
 
 /* start footer */
@@ -689,6 +687,9 @@ footer .container {
 @media (max-width: 767px) {
   footer .container {
     flex-direction: column;
+  }
+  footer .container .txt {
+    order: 5;
   }
 }
 
@@ -718,6 +719,4 @@ footer .container .icons i:hover {
   color: var(--id-color);
   border: 1px solid var(--id-color);
 }
-
-
 /* end footer */
